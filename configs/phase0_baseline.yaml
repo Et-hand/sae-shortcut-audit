@@ -1,0 +1,26 @@
+# Phase 0: ERM fine-tune of Pythia-160m on CivilComments.
+# LR/epochs are starting guesses from the project guide; tune on val.
+name: phase0_baseline
+seeds: [0, 1, 2]
+
+data:
+  root_dir: data
+  max_length: 300
+  train_subsample: null      # int to subsample train (e.g. to strengthen the shortcut)
+
+model:
+  name: EleutherAI/pythia-160m
+  pooling: last_token
+
+train:
+  lr: 1.0e-5
+  epochs: 2
+  batch_size: 16
+  weight_decay: 0.01
+  warmup_ratio: 0.06
+  grad_accum: 1
+  fp16: true
+
+output:
+  checkpoint_dir: checkpoints/phase0
+  results_dir: results
